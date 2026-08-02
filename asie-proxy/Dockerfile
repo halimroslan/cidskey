@@ -2,8 +2,8 @@ FROM mcr.microsoft.com/playwright:v1.52.0-noble
 
 WORKDIR /app
 
-COPY package.json ./
-RUN npm ci --only=production
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 # Install Playwright browsers
 RUN npx playwright install chromium
