@@ -140,7 +140,16 @@ app.post('/get-schedule', async (req, res) => {
     if (!loggedIn) return res.json({ success: false, error: 'Login ASIE gagal.' });
 
     await page.goto('https://asiemodel.net/model/teachers9.php?action=waktumengajar', { waitUntil: 'domcontentloaded', timeout: 30000 });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
+
+    // DEBUG: log what we see
+    const debugInfo = await page.evaluate(() => ({
+      url: window.location.href,
+      title: document.title,
+      rowCount: document.querySelectorAll('.li_row.li_sortable').length,
+      bodyTextSample: document.body.innerText.substring(0, 300),
+    }));
+    console.log('[get-schedule] DEBUG:', JSON.stringify(debugInfo));
 
     const schedule = await page.evaluate(() => {
       const subjectMap = { 'mathematics': 'Matematik', 'physics': 'Fizik', 'chemistry': 'Kimia', 'biology': 'Biologi', 'science': 'Sains', 'arabic': 'Bahasa Arab', 'english': 'Bahasa Inggeris', 'malay': 'Bahasa Melayu', 'history': 'Sejarah', 'geography': 'Geografi', 'islamic_studies': 'Pendidikan Islam', 'moral': 'Pendidikan Moral' };
