@@ -42,6 +42,14 @@ const cards = [
     className: 'setting-card',
     href: '/settings',
   },
+  {
+    id: 'admin-license',
+    label: 'PORTAL LESEN',
+    icon: '/assets/APPLOGO.png',
+    desc: 'Pantau status 500 lesen, tarikh & masa diaktifkan, bilangan peranti aktif dan kawalan reset slot.',
+    className: 'setting-card',
+    href: '/admin',
+  },
 ];
 
 export default function DashboardPage() {

@@ -9,6 +9,7 @@ const menuItems = [
   { id: 'rph',      label: 'RPH ASSIST',       icon: '/assets/RPH AI ASSIST ICON.png',      href: '/rph-assist' },
   { id: 'deleter',  label: 'RPH DELETER',      icon: '/assets/RPH DELETER ICON.png',        href: '/rph-deleter' },
   { id: 'setting',  label: 'SETTING',          icon: '/assets/SETTING ICON.png',             href: '/settings' },
+  { id: 'admin',    label: 'PORTAL LESEN',     icon: '/assets/APPLOGO.png',                  href: '/admin' },
 ];
 
 export default function Sidebar() {
