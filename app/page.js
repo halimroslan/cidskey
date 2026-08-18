@@ -77,6 +77,30 @@ export default function DashboardPage() {
             </Link>
           ))}
         </div>
+
+        {/* Admin Portal Quick Link */}
+        <div style={{ marginTop: '36px', textAlign: 'center' }}>
+          <Link
+            href="/admin"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 18px',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '20px',
+              color: '#94a3b8',
+              fontSize: '12px',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              backdropFilter: 'blur(8px)'
+            }}
+          >
+            <span>🔐</span>
+            <span>Portal Pengurusan Lesen Admin</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
