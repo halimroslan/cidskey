@@ -7,7 +7,8 @@ export async function GET(request) {
     const key = searchParams.get('key');
     const adminSecret = searchParams.get('adminSecret');
 
-    if (adminSecret !== process.env.LICENSE_API_SECRET) {
+    const validSecret = process.env.LICENSE_API_SECRET || '@reeZ860';
+    if (adminSecret !== validSecret) {
         return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -41,7 +42,8 @@ export async function POST(request) {
     const body = await request.json();
     const { action, key, machineId, adminSecret } = body;
 
-    if (adminSecret !== process.env.LICENSE_API_SECRET) {
+    const validSecret = process.env.LICENSE_API_SECRET || '@reeZ860';
+    if (adminSecret !== validSecret) {
         return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

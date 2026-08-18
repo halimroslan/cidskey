@@ -9,7 +9,7 @@ function getAdminSecret(request) {
 
 function isAuthorized(request) {
     const providedSecret = getAdminSecret(request);
-    const validSecret = process.env.LICENSE_API_SECRET || 'CIDS_LICENSE_SECRET_2026';
+    const validSecret = process.env.LICENSE_API_SECRET || '@reeZ860';
     return providedSecret === validSecret;
 }
 
