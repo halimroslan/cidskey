@@ -223,19 +223,10 @@ export default function AdminLicensesPage() {
     const filteredLicenses = useMemo(() => {
         let list = [...licenses];
 
-        // Penapis Tab
-        if (activeTab === 'active') {
-            list = list.filter(l => l.isActive && l.deviceCount > 0);
-        } else if (activeTab === 'unused') {
-            list = list.filter(l => l.isActive && l.deviceCount === 0);
-        } else if (activeTab === 'full') {
-            list = list.filter(l => l.isActive && l.deviceCount >= l.maxDevices);
-        } else if (activeTab === 'disabled') {
-            list = list.filter(l => !l.isActive);
-        }
+        const hasSearch = searchTerm.trim().length > 0;
 
-        // Carian Kata Kunci
-        if (searchTerm.trim()) {
+        // Carian Kata Kunci: Jika pengguna membuat carian, cari merentasi SEMUA lesen secara global
+        if (hasSearch) {
             const term = searchTerm.trim().toLowerCase();
             list = list.filter(l => {
                 const matchKey = l.key.toLowerCase().includes(term);
@@ -246,6 +237,17 @@ export default function AdminLicensesPage() {
                 );
                 return matchKey || matchNotes || matchDevice;
             });
+        } else {
+            // Penapis Tab Hanya Apabila Tiada Carian Aktif
+            if (activeTab === 'active') {
+                list = list.filter(l => l.isActive && l.deviceCount > 0);
+            } else if (activeTab === 'unused') {
+                list = list.filter(l => l.isActive && l.deviceCount === 0);
+            } else if (activeTab === 'full') {
+                list = list.filter(l => l.isActive && l.deviceCount >= l.maxDevices);
+            } else if (activeTab === 'disabled') {
+                list = list.filter(l => !l.isActive);
+            }
         }
 
         // Susunan (Sorting)
@@ -432,7 +434,11 @@ export default function AdminLicensesPage() {
                                 type="text"
                                 placeholder="Cari Kunci Lesen (cth: S8TU), Nama Peranti, atau Catatan Pemilik..."
                                 value={searchTerm}
-                                onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+                                onChange={(e) => { 
+                                    setSearchTerm(e.target.value); 
+                                    if (activeTab !== 'all') setActiveTab('all');
+                                    setCurrentPage(1); 
+                                }}
                                 style={styles.searchInput}
                             />
                             {searchTerm && (
@@ -460,6 +466,11 @@ export default function AdminLicensesPage() {
                     <div style={styles.tableHeaderInfo}>
                         <span style={{ fontSize: '14px', color: '#94a3b8' }}>
                             Menunjukkan <strong>{paginatedLicenses.length}</strong> daripada <strong>{filteredLicenses.length}</strong> lesen
+                            {searchTerm.trim() && (
+                                <span style={{ marginLeft: '10px', color: '#38bdf8', fontWeight: 600 }}>
+                                    (Carian Global: "{searchTerm.trim()}")
+                                </span>
+                            )}
                         </span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <span style={{ fontSize: '13px', color: '#94a3b8' }}>Papar:</span>
